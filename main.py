@@ -45,23 +45,21 @@ CURSOR_OUTLINE_COLOR = DARK_COZY_GRAY
 CURSOR_SIZE = 10
 CURSOR_OUTLINE_THICKNESS = 2
 
-# Hit effect properties
+
 HIT_EFFECTS = []
 SPARKLE_LIFESPAN = 0.4
 SPARKLE_RADIUS_START = 5
 SPARKLE_RADIUS_END = 20
 SPARKLE_COLOR = WHITE
 
-# --- Game State Variables (Global Scope) ---
-# These variables are defined here, at the module level.
-# If they are assigned to within a function, that function needs to declare them 'global'.
+
 game_state = "START"
 score = 0
 targets = []
 start_time = 0
 misses = 0
 
-# --- Target Class ---
+
 class Target:
     MAX_SIZE = 30
     GROWTH_RATE = 0.3
@@ -94,7 +92,7 @@ class Target:
         dis = math.hypot(self.x - x, self.y - y)
         return dis <= self.size
 
-# --- Helper Functions for Drawing ---
+
 
 def draw_text(text, font, color, x, y, align="center"):
     text_surface = font.render(text, True, color)
@@ -129,40 +127,39 @@ def draw_hit_effect(effect):
         return True
     return False
 
-# --- Main Game Loop Function ---
+
 def main():
-    # Declare these variables as global because they are assigned to (modified)
-    # within this function and are intended to refer to the module-level variables.
+    
     global game_state, score, misses, targets, start_time, HIT_EFFECTS
 
     run = True
     clock = pygame.time.Clock()
 
-    # Reset game variables for a fresh start or restart
+    
     def reset_game():
-        # This nested function also needs to declare them global if it modifies them.
+        
         global score, misses, targets, start_time, HIT_EFFECTS, game_state
         score = 0
         misses = 0
         targets = []
         HIT_EFFECTS = []
         start_time = time.time()
-        # Spawn first target immediately after starting
+        
         x = random.randint(target_padding, WIDTH - target_padding)
         y = random.randint(target_padding, HEIGHT - target_padding)
         targets.append(Target(x, y))
         pygame.time.set_timer(target_event, target_increment) # Restart target spawning timer
 
-    # Initial setup for the game
-    reset_game() # Call once to set initial state
-    game_state = "START" # Ensure it starts on the start screen
+    
+    reset_game() 
+    game_state = "START" 
 
     while run:
         clock.tick(FPS)
         current_time = time.time()
         mouse_pos = pygame.mouse.get_pos()
 
-        # --- Event Handling ---
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -193,7 +190,7 @@ def main():
                 y = random.randint(target_padding, HEIGHT - target_padding)
                 targets.append(Target(x, y))
 
-        # --- Game Logic Updates ---
+       
         if game_state == "PLAYING":
             elapsed_time = current_time - start_time
             remaining_time = max(0, GAME_DURATION - elapsed_time)
@@ -215,7 +212,7 @@ def main():
                 pygame.time.set_timer(target_event, 0)
                 targets = []
 
-        # --- Drawing ---
+        
         WIN.fill(BACKGROUND_COLOR)
 
         if game_state == "START":
