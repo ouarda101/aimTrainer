@@ -58,6 +58,19 @@ To get a local copy up and running, follow these simple steps:
 * `random` : Used for generating random target positions.
 * `time` : Used for managing game timing and target lifespans.
 
+### 🎬 Demos 
 
+1. Start screen
+
+![Start screen](screenshots/MainPage.jpg)
+
+2. Gameplay
+
+![Gameplay](screenshots/GameInterface.jpg)
+
+
+3. Game End
+
+![Game End](screenshots/Result_Restart.jpg)
 
 📄 **Feel free to explore, fork, and contribute!**
